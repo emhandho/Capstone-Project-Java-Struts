@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="authenticationInterceptor" 
+			class="com.capstoneproject.interceptor.UserAuthenticationInterceptor"/>
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="authenticationInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			
+			<interceptor name="authenticationInterceptor" 
+			class="com.capstoneproject.interceptor.AdminAuthenticationInterceptor"/>
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="authenticationInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack> 
+		</interceptors>
+		
+		<action name="login">
+			<result>/login.jsp</result>
+		</action> 
+		
+		<action name="adminlogin">
+			<result>/adminlogin.jsp</result>
+		</action>
+		
+		<action name="home">
+			<result>/homepage.jsp</result>
+		</action>
+		
+		<action name="registration">
+			<result>/registration.jsp</result>
+		</action>
+		
+		<action name="forgetpass">
+			<result>/forgetpassword.jsp</result>
+		</action>
+		
+		<action name="welcome">
+			<result>/welcome.jsp</result>
+		</action>
+		
+		<action name="report" class="com.capstoneproject.action.ReportAction">
+			<result name="REPORT">/Administration.jsp</result>
+		</action>
+	
+		<action name="registeruser" class="com.capstoneproject.action.RegisterAction">
+			<result name="REGISTER">/thankyou.jsp</result>
+		</action>
+		
+		<action name="changepassword" class="com.capstoneproject.action.ChangePassword">
+			<result name="CHANGE">/forgetpassword.jsp</result>
+		</action>
+		
+		<action name="loginuser" class="com.capstoneproject.action.LoginAction">
+			<result name="success">/welcome.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="loginadmin" class="com.capstoneproject.action.AdminLoginAction">
+			<result name="success">/welcomeadmin.jsp</result>
+			<result name="input">/adminlogin.jsp</result>
+		</action>
+		
+		<action name="searchuser" class="com.capstoneproject.action.SearchAction">
+			<result name="success">/searchlist.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="adminsearchuser" class="com.capstoneproject.action.SearchAction">
+			<result name="success">/adminsearchlist.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="logoutuser" class="com.capstoneproject.action.LogoutAction">
+			<result name="success">/homepage.jsp</result>
+		</action>
+		
+		<action name="viewprofile" class="com.capstoneproject.action.ViewProfile">
+			<result name="PROFILE">/viewprofile.jsp</result>
+		</action>
+		
+		<action name="adminviewprofile" class="com.capstoneproject.action.ViewProfile">
+			<result name="PROFILE">/adminviewprofile.jsp</result>
+		</action>
+		
+		<action name="profileuser" class="com.capstoneproject.action.ProfileAction">
+			<interceptor-ref name="secureStack"/>
+			<result name="PROFILE">/profile.jsp</result>
+			<result name="INPUT">/login.jsp</result>
+		</action>
+		
+		<action name="updateuser" class="com.capstoneproject.action.UpdateAction">
+			<interceptor-ref name="secureStack"/>
+			<result name="UPDATE">/update.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="adminupdateuser" class="com.capstoneproject.action.UpdateAction">
+			<interceptor-ref name="secureStack"/>
+			<result name="UPDATE">/adminupdate.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="deleteuser" class="com.capstoneproject.action.DeleteAction">
+			<interceptor-ref name="secureStack"/>
+			<result name="DELETED">/deletesuccess.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+	</package>
+</struts>
